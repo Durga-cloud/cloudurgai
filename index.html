@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Durga Prasad Yadav — AWS & AI/ML Trainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #060b14;
+    --surface: #0d1520;
+    --surface2: #111d2e;
+    --border: rgba(0,200,255,0.12);
+    --accent: #00c8ff;
+    --accent2: #00ff9d;
+    --accent3: #a855f7;
+    --text: #e8f4ff;
+    --muted: #6b8ca8;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Sora', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── GRID BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(6,11,20,0.85);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 8rem;
+    max-width: 1100px;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 36px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1.hero-name {
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .hero-name span { color: var(--accent); }
+
+  .hero-role {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    font-family: var(--mono);
+  }
+
+  .hero-desc {
+    max-width: 560px;
+    color: #8bacc8;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+  .stat-item { }
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.75rem 1.75rem;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #020912;
+    border: none;
+  }
+  .btn-primary:hover { background: #33d4ff; transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .btn-ghost:hover { background: rgba(0,200,255,0.08); transform: translateY(-2px); }
+
+  /* ── SECTION HEADING ── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+  .section-title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+
+  .about-text p { color: #8bacc8; margin-bottom: 1rem; font-size: 1rem; line-height: 1.85; }
+
+  .info-list { display: flex; flex-direction: column; gap: 1rem; }
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .info-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .info-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .info-val { font-size: 14px; color: var(--text); font-weight: 500; }
+
+  /* ── SKILLS ── */
+  #skills { background: transparent; }
+  .skills-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+
+  .skill-cat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .skill-cat:hover { border-color: rgba(0,200,255,0.35); transform: translateY(-4px); }
+  .skill-cat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+  .skill-cat:nth-child(2)::before { background: linear-gradient(90deg, var(--accent2), transparent); }
+  .skill-cat:nth-child(3)::before { background: linear-gradient(90deg, var(--accent3), transparent); }
+  .skill-cat:nth-child(4)::before { background: linear-gradient(90deg, #f97316, transparent); }
+
+  .cat-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .cat-name {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    background: rgba(0,200,255,0.07);
+    border: 1px solid rgba(0,200,255,0.15);
+    color: #8bacc8;
+  }
+  .skill-cat:nth-child(2) .skill-tag { background: rgba(0,255,157,0.07); border-color: rgba(0,255,157,0.15); }
+  .skill-cat:nth-child(3) .skill-tag { background: rgba(168,85,247,0.07); border-color: rgba(168,85,247,0.15); }
+  .skill-cat:nth-child(4) .skill-tag { background: rgba(249,115,22,0.07); border-color: rgba(249,115,22,0.15); }
+
+  /* ── EXPERIENCE ── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 3rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.45rem;
+    top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 10px rgba(0,200,255,0.5);
+  }
+
+  .job-header { margin-bottom: 0.5rem; }
+  .job-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .job-company {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin: 4px 0;
+  }
+  .job-period {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  .job-desc {
+    margin-top: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+  .job-desc ul { list-style: none; }
+  .job-desc li {
+    font-size: 14px;
+    color: #8bacc8;
+    padding: 4px 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .job-desc li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── CERTS ── */
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+
+  .cert-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .cert-card:hover { border-color: rgba(0,200,255,0.4); transform: translateY(-3px); }
+
+  .cert-badge {
+    width: 46px; height: 46px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    background: rgba(0,200,255,0.1);
+    border: 1px solid rgba(0,200,255,0.2);
+  }
+  .cert-name { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.3; }
+  .cert-issuer { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  /* ── EDUCATION ── */
+  .edu-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+  .edu-card {
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .edu-card:hover { transform: translateY(-4px); }
+  .edu-card::after {
+    content: attr(data-year);
+    position: absolute;
+    bottom: -10px; right: -5px;
+    font-family: var(--mono);
+    font-size: 5rem;
+    font-weight: 700;
+    color: rgba(0,200,255,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .edu-degree { font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .edu-field { font-size: 13px; color: var(--accent); margin-bottom: 8px; }
+  .edu-univ { font-size: 13px; color: var(--muted); }
+  .edu-year { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .edu-badge {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(0,255,157,0.1);
+    color: var(--accent2);
+    border: 1px solid rgba(0,255,157,0.2);
+  }
+
+  /* ── CLIENTS ── */
+  .clients-section { }
+  .clients-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .client-pill {
+    padding: 0.6rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13px;
+    color: #8bacc8;
+    transition: all 0.2s;
+  }
+  .client-pill:hover { border-color: rgba(0,200,255,0.4); color: var(--text); }
+
+  /* ── CONTACT ── */
+  #contact {
+    text-align: center;
+  }
+  .contact-inner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-inner::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,200,255,0.06), transparent 70%);
+    pointer-events: none;
+  }
+  .contact-subtitle { color: var(--muted); margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+  .contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.8rem 1.5rem;
+    background: rgba(0,200,255,0.06);
+    border: 1px solid rgba(0,200,255,0.18);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { background: rgba(0,200,255,0.12); border-color: rgba(0,200,255,0.4); transform: translateY(-2px); }
+  .contact-link span { color: var(--accent); font-size: 1.1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── TERMINAL ANIMATION ── */
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  .cursor {
+    display: inline-block;
+    width: 2px; height: 1.1em;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── GLOW ORBS ── */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: rgba(0,200,255,0.04);
+    top: -100px; right: -100px;
+  }
+  .orb-2 {
+    width: 400px; height: 400px;
+    background: rgba(168,85,247,0.04);
+    bottom: 10%; left: -100px;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 640px) {
+    nav { padding: 1rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.25rem; }
+    .hero-stats { gap: 2rem; }
+    .contact-inner { padding: 2.5rem 1.25rem; }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,200,255,0.2); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- Ambient orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DPY<span style="color:var(--muted)">.dev</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">AWS Accredited Instructor &amp; AI/ML Trainer</div>
+  <h1 class="hero-name">Durga<br/><span>Prasad</span><br/>Yadav</h1>
+  <p class="hero-role" id="typed-role"><span class="cursor"></span></p>
+  <p class="hero-desc">
+    9+ years shaping cloud professionals — from foundational AWS to deep learning. 
+    Trained engineers at Adobe, Deloitte, TCS, HCL, and institutions across India and Malaysia. 
+    Currently pursuing M.Tech in AI/ML at BITS Pilani.
+  </p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">9+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Students Trained</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Certifications</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Cloud Platforms</div>
+    </div>
+  </div>
+  <div class="hero-actions">
+    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+    <a href="#experience" class="btn btn-ghost">View Experience</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">// about me</div>
+    <h2 class="section-title">Cloud Educator.<br/><em>AI Practitioner.</em></h2>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>
+        I'm a dedicated Cloud &amp; AI/ML professional with over 9 years of experience bridging 
+        the gap between complex technologies and real-world application. My passion lies in 
+        making cloud education accessible, practical, and career-oriented.
+      </p>
+      <p>
+        As an <strong style="color:var(--text)">AWS Accredited Instructor</strong>, I have designed and delivered training programs for 
+        Fortune 500 companies and global institutions — helping learners gain certifications 
+        and land high-impact roles in cloud and AI.
+      </p>
+      <p>
+        Currently advancing my expertise with an <strong style="color:var(--text)">M.Tech in AI/ML from BITS Pilani (WILP)</strong>, 
+        focusing on Deep Learning, NLP, and Reinforcement Learning alongside active professional practice.
+      </p>
+    </div>
+    <div class="info-list">
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-label">Location</div>
+          <div class="info-val">Hyderabad, Telangana, India</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">✉️</div>
+        <div>
+          <div class="info-label">Email</div>
+          <div class="info-val"><a href="mailto:cloudurga@gmail.com" style="color:var(--accent);text-decoration:none;">cloudurga@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📱</div>
+        <div>
+          <div class="info-label">Phone</div>
+          <div class="info-val">+91 9205022040</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">🎓</div>
+        <div>
+          <div class="info-label">Current Study</div>
+          <div class="info-val">M.Tech AI/ML — BITS Pilani (2024–26)</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">💼</div>
+        <div>
+          <div class="info-label">Current Role</div>
+          <div class="info-val">AWS & CCNA Trainer — Tech Mahindra Foundation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="reveal">
+    <div class="section-label">// technical skills</div>
+    <h2 class="section-title">What I <em>Know</em></h2>
+  </div>
+  <div class="skills-categories reveal">
+    <div class="skill-cat">
+      <div class="cat-icon">☁️</div>
+      <div class="cat-name">Cloud Platforms</div>
+      <div class="skill-tags">
+        <span class="skill-tag">AWS EC2</span>
+        <span class="skill-tag">S3</span>
+        <span class="skill-tag">IAM</span>
+        <span class="skill-tag">VPC</span>
+        <span class="skill-tag">CloudFormation</span>
+        <span class="skill-tag">Route 53</span>
+        <span class="skill-tag">CloudWatch</span>
+        <span class="skill-tag">App Runner</span>
+        <span class="skill-tag">Azure VMs</span>
+        <span class="skill-tag">Azure AD</span>
+        <span class="skill-tag">GCP Compute</span>
+        <span class="skill-tag">GKE</span>
+        <span class="skill-tag">Terraform</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="cat-icon">🤖</div>
+      <div class="cat-name">AI / Machine Learning</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">TensorFlow</span>
+        <span class="skill-tag">Keras</span>
+        <span class="skill-tag">Scikit-learn</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">CNN</span>
+        <span class="skill-tag">RNN</span>
+        <span class="skill-tag">ANN</span>
+        <span class="skill-tag">SVM</span>
+        <span class="skill-tag">Random Forest</span>
+        <span class="skill-tag">NLP</span>
+        <span class="skill-tag">TensorBoard</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="cat-icon">⚙️</div>
+      <div class="cat-name">DevOps & Automation</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Kubernetes</span>
+        <span class="skill-tag">Jenkins</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">CI/CD</span>
+        <span class="skill-tag">Bash</span>
+        <span class="skill-tag">Terraform</span>
+        <span class="skill-tag">Linux</span>
+        <span class="skill-tag">RHEL</span>
+        <span class="skill-tag">Ubuntu</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="cat-icon">🔐</div>
+      <div class="cat-name">Cyber Security & Networking</div>
+      <div class="skill-tags">
+        <span class="skill-tag">CompTIA Security+</span>
+        <span class="skill-tag">CEH</span>
+        <span class="skill-tag">CCNA</span>
+        <span class="skill-tag">Palo Alto</span>
+        <span class="skill-tag">Checkpoint</span>
+        <span class="skill-tag">Risk Management</span>
+        <span class="skill-tag">IAM</span>
+        <span class="skill-tag">VPN</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="reveal">
+    <div class="section-label">// work experience</div>
+    <h2 class="section-title">Career <em>Journey</em></h2>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-header">
+        <div class="job-title">AWS & CCNA Trainer</div>
+        <div class="job-company">Tech Mahindra Foundation</div>
+        <div class="job-period">Dec 2024 – Jul 2025</div>
+      </div>
+      <div class="job-desc">
+        <ul>
+          <li>Delivered official AWS re/Start curriculum to diverse learner groups across India and internationally</li>
+          <li>Facilitated CCNA modules covering networking fundamentals, IP addressing, routing &amp; switching</li>
+          <li>Trained 4+ batches, mentoring learners toward certification and job-readiness</li>
+          <li>Designed AI training sessions with hands-on labs, live projects, and certification guidance</li>
+          <li>Clients: World Education Placement Services (Malaysia), Generation India, Aspire For Her, Magic Bus</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-header">
+        <div class="job-title">AWS Accredited Instructor</div>
+        <div class="job-company">Mapping Skills Technology Pvt. Ltd.</div>
+        <div class="job-period">Oct 2022 – Dec 2024</div>
+      </div>
+      <div class="job-desc">
+        <ul>
+          <li>Designed and delivered corporate training for Adobe, Deloitte, TCS, HCL, Tech Mahindra</li>
+          <li>Developed training modules, hands-on labs, and certification prep content</li>
+          <li>Conducted workshops on Cloud, Linux, Networking, and AI/ML</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-header">
+        <div class="job-title">Senior Technical Trainer</div>
+        <div class="job-company">Wanforce Technology</div>
+        <div class="job-period">Dec 2019 – Mar 2022</div>
+      </div>
+      <div class="job-desc">
+        <ul>
+          <li>Delivered classroom and virtual training on AWS, Networking, Linux, and Security</li>
+          <li>Contributed to curriculum design, content development, and lab setup</li>
+          <li>Conducted learner assessments, mock interviews, and post-training evaluations</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-header">
+        <div class="job-title">Cloud Trainer & Founder</div>
+        <div class="job-company">DCyborg India</div>
+        <div class="job-period">Dec 2017 – Dec 2019</div>
+      </div>
+      <div class="job-desc">
+        <ul>
+          <li>Founded and led cloud training division, serving students and entry-level professionals</li>
+          <li>Managed cloud infrastructure projects and real-world simulation labs</li>
+          <li>Built technical team, onboarded instructors, and maintained training quality standards</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-header">
+        <div class="job-title">Senior Research Engineer</div>
+        <div class="job-company">Techtron Technology, Delhi</div>
+        <div class="job-period">Jun 2016 – Sep 2017</div>
+      </div>
+      <div class="job-desc">
+        <ul>
+          <li>Led R&amp;D in Electronics and IT-based projects including embedded systems and automation</li>
+          <li>Prototyping, testing, and implementation of innovative engineering solutions</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="reveal">
+    <div class="section-label">// certifications</div>
+    <h2 class="section-title">Credentials &amp; <em>Badges</em></h2>
+  </div>
+  <div class="certs-grid reveal">
+    <div class="cert-card">
+      <div class="cert-badge">🏅</div>
+      <div>
+        <div class="cert-name">AWS Accredited Instructor</div>
+        <div class="cert-issuer">AWS re/Start Program · Amazon Web Services</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">☁️</div>
+      <div>
+        <div class="cert-name">AWS Certified Solutions Architect – Associate</div>
+        <div class="cert-issuer">Amazon Web Services</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">🌐</div>
+      <div>
+        <div class="cert-name">CCNA Trainer Certificate</div>
+        <div class="cert-issuer">Cisco Certified Network Associate</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">💻</div>
+      <div>
+        <div class="cert-name">Cloud Application Developer</div>
+        <div class="cert-issuer">Generation India</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">🎓</div>
+      <div>
+        <div class="cert-name">CAD Certification</div>
+        <div class="cert-issuer">NASSCOM / Skill India / SIB</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="reveal">
+    <div class="section-label">// education</div>
+    <h2 class="section-title">Academic <em>Foundations</em></h2>
+  </div>
+  <div class="edu-cards reveal">
+    <div class="edu-card" data-year="2026">
+      <div class="edu-degree">Master of Technology (M.Tech)</div>
+      <div class="edu-field">Artificial Intelligence &amp; Machine Learning</div>
+      <div class="edu-univ">BITS Pilani — Birla Institute of Technology &amp; Science (WILP)</div>
+      <div class="edu-year">2024 – 2026</div>
+      <span class="edu-badge">In Progress</span>
+    </div>
+    <div class="edu-card" data-year="2016">
+      <div class="edu-degree">Bachelor of Technology (B.Tech)</div>
+      <div class="edu-field">Electronics &amp; IT Engineering</div>
+      <div class="edu-univ">V.B.S. Purvanchal University</div>
+      <div class="edu-year">2012 – 2016</div>
+      <span class="edu-badge" style="background:rgba(0,200,255,0.1);color:var(--accent);border-color:rgba(0,200,255,0.2);">Completed</span>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="reveal">
+    <div class="section-label">// clients & institutions</div>
+    <h2 class="section-title">Trained Professionals <em>At</em></h2>
+  </div>
+  <div class="clients-grid reveal">
+    <span class="client-pill">Adobe</span>
+    <span class="client-pill">Deloitte</span>
+    <span class="client-pill">TCS</span>
+    <span class="client-pill">HCL Technologies</span>
+    <span class="client-pill">Tech Mahindra</span>
+    <span class="client-pill">Tech Mahindra Foundation</span>
+    <span class="client-pill">Generation India</span>
+    <span class="client-pill">Aspire For Her</span>
+    <span class="client-pill">Magic Bus</span>
+    <span class="client-pill">World Education Placement (Malaysia)</span>
+    <span class="client-pill">Conduira</span>
+    <span class="client-pill">NASSCOM / Skill India</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="section-label" style="text-align:center">// contact</div>
+    <h2 class="section-title" style="text-align:center">Let's <em>Connect</em></h2>
+    <p class="contact-subtitle">Open to corporate training engagements, consulting, institutional partnerships, and AI/ML project collaborations.</p>
+    <div class="contact-links">
+      <a href="mailto:cloudurga@gmail.com" class="contact-link">
+        <span>✉️</span> cloudurga@gmail.com
+      </a>
+      <a href="tel:+919205022040" class="contact-link">
+        <span>📱</span> +91 9205022040
+      </a>
+      <a href="https://www.linkedin.com/in/durgaprasadyadavg" target="_blank" class="contact-link">
+        <span>🔗</span> LinkedIn Profile
+      </a>
+    </div>
+    <a href="mailto:cloudurga@gmail.com" class="btn btn-primary" style="margin-top:0.5rem">Send a Message</a>
+  </div>
+</section>
+
+<footer>
+  <p>Built by Durga Prasad Yadav &nbsp;·&nbsp; AWS Trainer &amp; AI/ML Practitioner &nbsp;·&nbsp; Hyderabad, India</p>
+</footer>
+
+<script>
+  // Typed text animation
+  const roles = ['Cloud Computing Trainer', 'AWS Accredited Instructor', 'AI/ML Educator', 'M.Tech AI Student @ BITS Pilani'];
+  let ri = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typed-role');
+  function type() {
+    const role = roles[ri];
+    if (!deleting) {
+      el.innerHTML = role.slice(0, ci + 1) + '<span class="cursor"></span>';
+      ci++;
+      if (ci === role.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.innerHTML = role.slice(0, ci - 1) + '<span class="cursor"></span>';
+      ci--;
+      if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(type, deleting ? 45 : 80);
+  }
+  type();
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+  // Stagger timeline items
+  document.querySelectorAll('.timeline-item').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.1) + 's';
+  });
+</script>
+</body>
+</html>
